@@ -7,23 +7,30 @@ from utils import load_model, makedir
 from utils.metrics import cosine_similarity,spearman,pearson_matrix,pearson
 
 class MoTSE(object):
-    def __init__(self):
-        pass
-
-    def extract_knowledge(self,model_type,task,model_path,probe_data):
-        
-        model = load_model(model_type,1,source_model_path=model_path)
-        gs = probe_data['data'][1]
+    def __init__(self,device):
+        self.device=device
+    def get_path(self,model_path,probe_data):
+        path_list = model_path.split('/')[:-1]
+        path_list[1] = 'results'
+        path_list += [probe_data, '']
+        path = '/'.join(path_list)
+        self.path = path
+        makedir(self.path)
+    def _prepare_batch_data(self,batch_data):
+        smiles, inputs = batch_data
+        inputs.ndata['h'] = inputs.ndata['h'].to(self.device)
+        return inputs
+    def extract_knowledge(self,task,model_path,probe_data):
+        gs = self._prepare_batch_data(probe_data['data'])
+        model = load_model(1,source_model_path=model_path).to(self.device)
         node_feats = gs.ndata['h']
         gs.ndata['h'] = Variable(node_feats,requires_grad=True)
         g_reps, predictions = model(gs)
         predictions.mean().backward()
         gradient_mul_input = gs.ndata['h'].grad * gs.ndata['h']
-        local_knowledge = np.mean(gradient_mul_input.detach().numpy(),axis=-1)
-        pearson_matrix_ = np.array(pearson_matrix(g_reps.detach().numpy()))[0]
+        local_knowledge = np.mean(gradient_mul_input.cpu().detach().numpy(),axis=-1)
+        pearson_matrix_ = np.array(pearson_matrix(g_reps.cpu().detach().numpy()))[0]
         global_knowledge = pearson_matrix_[np.triu_indices(len(g_reps), k = 1)]
-        np.save(lk_path, local_knowledge)
-        np.save(gk_path, global_knowledge)
             
         return local_knowledge, global_knowledge
     
@@ -40,16 +47,17 @@ class MoTSE(object):
     def _mrsa(self, R, R_):
         return spearman(R, R_)
     
-    def cal_sim(self,model_type,source_tasks,target_tasks,
+    def cal_sim(self,source_tasks,target_tasks,
                 source_model_paths,target_model_paths,probe_data):
+        self.get_path(target_model_paths[0],probe_data['name'])
         # extract local and global knowledge
         s_lk,t_lk,s_gk,t_gk = [],[],[],[]
         for task,model_path in zip(source_tasks,source_model_paths):
-            lk, gk = self.extract_knowledge(model_type,task,model_path,probe_data)
+            lk, gk = self.extract_knowledge(task,model_path,probe_data)
             s_lk.append(lk)
             s_gk.append(gk)
         for task,model_path in zip(target_tasks,target_model_paths):
-            lk, gk = self.extract_knowledge(model_type,task,model_path,probe_data)
+            lk, gk = self.extract_knowledge(task,model_path,probe_data)
             t_lk.append(lk)
             t_gk.append(gk)
         
@@ -80,5 +88,5 @@ class MoTSE(object):
         motse_result = np.max(transfer_results[top_ids])
         best_result = np.max(transfer_results)
         
-        print(f"{[target_task]} scrach:{scratch_result:.3f}, motse:{motse_result}, best:{best_result}")
+        print(f"{[target_task]} scrach:{scratch_result:.4f}, motse:{motse_result:.4f}, best:{best_result:.4f}")
         return scratch_result, motse_result, best_result
