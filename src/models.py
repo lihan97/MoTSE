@@ -26,10 +26,11 @@ class GCN(nn.Module):
             self.weighted_sum_readout
         ])
         
-    def forward(self, g, feats):
+    def forward(self, g):
+        feats = g.ndata['h']
         h_g, feats = self.forward_encoder(g, feats)
         h = self.predictor(h_g)
-        return feats, h_g, h
+        return feats, h
     def forward_encoder(self, g, feats):
         for gnn in self.gnn_layers:
             feats = gnn(g, feats)
