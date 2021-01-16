@@ -6,7 +6,7 @@ from dgl.batched_graph import max_nodes
 from dgl.nn.pytorch import WeightAndSum
 class GCN(nn.Module):
     def __init__(self, n_tasks=1, in_feats=16, gcn_hidden_feats=[256,256,256],
-                 hidden_feats=512, dropout=0.0):
+                 dropout=0.0):
         super(GCN, self).__init__()
         self.gnn_layers = nn.ModuleList()
         for i in range(len(gcn_hidden_feats)):
@@ -30,7 +30,7 @@ class GCN(nn.Module):
         feats = g.ndata['h']
         h_g, feats = self.forward_encoder(g, feats)
         h = self.predictor(h_g)
-        return feats, h
+        return h_g, h
     def forward_encoder(self, g, feats):
         for gnn in self.gnn_layers:
             feats = gnn(g, feats)
