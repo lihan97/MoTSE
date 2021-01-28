@@ -31,13 +31,13 @@ Tested on a linux server with GeForce GTX 1080 and the running environment is as
 
 * ./src/utils/: This directory contains the codes of utils used in the experiments.
 
-*./src/1.train.ipynb: This is a demo for training GCN on QM9 dataset.
+* ./src/1.train.ipynb: This is a demo for training GCN on QM9 dataset.
 
-*./src/2.transfer.ipynb: This is a demo for transfer learning on QM9 dataset.
+* ./src/2.transfer.ipynb: This is a demo for transfer learning on QM9 dataset.
 
-*./src/3.estimate_similarity.ipynb: This is a demo for similarity estimation on QM9 dataset.
+* ./src/3.estimate_similarity.ipynb: This is a demo for similarity estimation on QM9 dataset.
 
-*./src/4.evaluate.ipynb: This is a demo for evaluating on QM9 dataset.
+* ./src/4.evaluate.ipynb: This is a demo for evaluating on QM9 dataset.
 
 
 
