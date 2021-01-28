@@ -11,6 +11,8 @@ Tested on a linux server with GeForce GTX 1080 and the running environment is as
 
 * rdkit=2018.09.3
 
+All the requirements can be easily installed using Conda/pip in 1 hour.
+
 ## How to Run
 1. Run ./src/1.train.ipynb for training GCN models on QM9 dataset.
 
@@ -19,6 +21,8 @@ Tested on a linux server with GeForce GTX 1080 and the running environment is as
 3. Run ./src/3.estimate_similarity.ipynb for estimating similarity of tasks in QM9 dataset.
 
 4. Run ./src/4.evaluate.ipynb for evaluating the performance on QM9 dataset.
+
+The expected output had been displayed in the ipynb files. And it takes around 5 hours to run these four steps.
 
 ## File Description
 * ./datasets/: This directory contains QM9 dataset, PCBA dataset, and Alchemy dataset used in paper.
