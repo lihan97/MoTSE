@@ -3,25 +3,33 @@ Codes for "MoTSE: an interpretable task similarity estimator for small molecular
 
 ## Environments
 Tested on a linux server with GeForce GTX 1080 and the running environment is as follows:
-*python=3.6
+* python=3.6
 
-*pytorch=1.1.0
+* pytorch=1.1.0
 
-*dgl=0.4.2
+* dgl=0.4.2
 
-*rdkit=2018.09.3
+* rdkit=2018.09.3
 
+## How to Run
+1. Run ./src/1.train.ipynb for training GCN models on QM9 dataset.
+
+2. Run ./src/2.transfer.ipynb for transfer learning on QM9 dataset.
+
+3. Run ./src/3.estimate_similarity.ipynb for estimating similarity of tasks in QM9 dataset.
+
+4. Run ./src/4.evaluate.ipynb for evaluating the performance on QM9 dataset.
 
 ## File Description
-*./datasets/: This directory contains QM9 dataset, PCBA dataset, and Alchemy dataset used in paper.
+* ./datasets/: This directory contains QM9 dataset, PCBA dataset, and Alchemy dataset used in paper.
 
-*./src/models.py: This file contains the codes of graph convolutional network.
+* ./src/models.py: This file contains the codes of graph convolutional network.
 
-*./src/motse.py: This file contains the codes of our model.
+* ./src/motse.py: This file contains the codes of our model.
 
-*./src/trainer.py: This file contains the codes of the trainer to train the graph convolutional network.
+* ./src/trainer.py: This file contains the codes of the trainer to train the graph convolutional network.
 
-*./src/utils/: This directory contains the codes of utils used in the experiments.
+* ./src/utils/: This directory contains the codes of utils used in the experiments.
 
 *./src/1.train.ipynb: This is a demo for training GCN on QM9 dataset.
 
