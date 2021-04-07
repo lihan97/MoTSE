@@ -42,10 +42,3 @@ The expected output had been displayed in the ipynb files. And it takes around 5
 * ./src/3.estimate_similarity.ipynb: This is a demo for similarity estimation on QM9 dataset.
 
 * ./src/4.evaluate.ipynb: This is a demo for evaluating on QM9 dataset.
-
-
-
-## License
-This software is copyrighted by Machine Learning and Computational Biology Group @ Tsinghua University.
-
-The algorithm and data can be used only for NON COMMERCIAL purposes.
