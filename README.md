@@ -25,7 +25,7 @@ All the requirements can be easily installed using Conda/pip in 1 hour.
 The expected output had been displayed in the ipynb files. And it takes around 5 hours to run these four steps.
 
 ## File Description
-* ./datasets/: This directory contains QM9 dataset, PCBA dataset, and Alchemy dataset used in paper.
+* ./datasets/: This directory contains QM9 dataset and PCBA dataset used in paper.
 
 * ./src/models.py: This file contains the codes of graph convolutional network.
 
