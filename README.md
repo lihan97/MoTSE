@@ -2,16 +2,15 @@
 Codes for "MoTSE: an interpretable task similarity estimator for small molecular property prediction tasks"
 
 ## Environments
-Tested on a linux server with GeForce GTX 1080 and the running environment is as follows:
-* python=3.6
+Tested on a linux server with GeForce GTX 1080.
 
-* pytorch=1.1.0
+Setup the environment using environment.yml with Anaconda. While in the project directory run:
 
-* dgl=0.4.2
+conda env create
 
-* rdkit=2018.09.3
+Activate the environment
 
-All the requirements can be easily installed using Conda/pip in 1 hour.
+conda activate MoTSE
 
 ## How to Run
 1. Run ./src/1.train.ipynb for training GCN models on QM9 dataset.
