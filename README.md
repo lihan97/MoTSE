@@ -6,11 +6,11 @@ Tested on a linux server with GeForce GTX 1080.
 
 Setup the environment using environment.yml with Anaconda. While in the project directory run:
 
-conda env create
+  conda env create
 
 Activate the environment
 
-conda activate MoTSE
+  conda activate MoTSE
 
 ## How to Run
 1. Run ./src/1.train.ipynb for training GCN models on QM9 dataset.
